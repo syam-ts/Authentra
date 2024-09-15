@@ -2,3 +2,4 @@
 /client/node_modules
 /client/postcss.config.js
 .env
+node_modules
