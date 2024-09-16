@@ -8,6 +8,6 @@
     "rootDir": "./backend",
     "strict": true
   },
-  "include": ["./**/*.ts"],
+  "include": ["./backend/**/*.ts"],
   "exclude": ["node_modules"]
 }

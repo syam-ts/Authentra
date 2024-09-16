@@ -3,8 +3,14 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 
+const mongoURI = process.env.MONGO
 
-mongoose.connect(process.env.MONGO)
+if(!mongoURI) {
+    throw new Error('Mongo db error')
+}
+
+
+mongoose.connect(mongoURI)
 .then(() => {
     console.log('Connected to MongoDB')
 })
