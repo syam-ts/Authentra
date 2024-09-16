@@ -3,4 +3,4 @@
 /client/postcss.config.js
 /client/vite.config.js
 .env
-node_modules
+/node_modules
