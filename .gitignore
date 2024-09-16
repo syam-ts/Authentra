@@ -1,5 +1,6 @@
 /backend/dist
 /client/node_modules
 /client/postcss.config.js
+/client/vite.config.js
 .env
 node_modules
