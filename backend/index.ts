@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/userRoute.js'
 import authRouter from './routes/authRoute.js'
+import { response, request } from 'express'
 dotenv.config()
 
 const mongoURI = process.env.MONGO
@@ -32,3 +33,14 @@ app.listen(PORT,() => {
 
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
+
+
+app.use((err: any, req: any, res: any, next: any) => {
+    const statusCode = err.statusCode || 500  
+    const message = err.message || 'Internal Server Error'
+    return res.status(statusCode).json({
+        success: false,
+        message,
+        statusCode
+    })
+})
