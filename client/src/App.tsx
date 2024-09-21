@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import SignIn from "./pages/SignIn";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import SignIn from "./pages/SignIn"
 import SignUp from './pages/Signup'
-import Profile from "./pages/Profile.tsx";
-import Header from "./component/Header.tsx";
+import Profile from "./pages/Profile"
+import Header from "./component/Header"
 
 const App = () => {
   return (
@@ -18,7 +18,8 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+
+export default App

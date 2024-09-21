@@ -1,16 +1,18 @@
-import { Request, Response} from 'express'
-import User from '../models/userModel.js'
-import bcryptjs from 'bcryptjs'
+import { Request, Response } from "express"
+import User from "../models/userModel.js"
+import bcryptjs from "bcryptjs"
 
-export const signup = async (req: Request, res: Response, next: any) => {
-    const {username, email, password} = req.body
-    const hashedPassword = bcryptjs.hashSync(password, 10)
-    const newUser = new User({username, email, password: hashedPassword})
-    try{
-        await newUser.save()
-        res.status(201).json({message: "User creted successfully!"})
-    }catch(err: any) {
-        next(err)
-    }
-   
+export const signup = async (req: Request, res: Response) => {
+  console.log("The body: ", req.body)
+  const { username, email, password } = req.body
+
+  const hashedPassword = bcryptjs.hashSync(password, 10)
+  const newUser = new User({ 
+    username,
+    email,
+    password: hashedPassword 
+  })
+
+  await newUser.save()
+  res.status(201).json({ message: "User created successfully!" })
 }
