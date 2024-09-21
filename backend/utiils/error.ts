@@ -1,6 +1,14 @@
-// export const errorHandler = (statusCode: any, message: any) => {
-//     const error = new Error()
-//     error.statusCode = statusCode,
-//     error.message = message
-//     return error
-// }
+class CustomError extends Error {
+    statusCode: number;
+
+    constructor(statusCode: number, message: string) {
+        super(message);  
+        this.statusCode = statusCode;
+        this.name = this.constructor.name;
+        Error.captureStackTrace(this, this.constructor);  
+    }
+}
+
+export const errorHandler = (statusCode: number, message: string): CustomError => {
+    return new CustomError(statusCode, message);
+};
