@@ -4,23 +4,44 @@ import { Link } from 'react-router-dom'
 
 const SignUp = () => {
   const [formData, setFormData] = useState({})
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
 
+
   const handleSubmit = async (e: any) => {
     e.preventDefault(); 
+
+    try{
+      setLoading(true)
+      setError(false) 
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      });
+      })
+       console.log('Middle')
+      const data = await res.json()
+      setLoading(false)
+      console.log('The data : ',data)
+      if(data.success === false) {
+        console.log('Error has gotten!')
+        setError(true)
+        return
+      }
+    
+    }catch(err: any) {
 
-      const data = await res.json();
-      console.log(data);
+      setLoading(false)
+      setError(true)
+    }
+   
  
   }
 
@@ -47,9 +68,10 @@ const SignUp = () => {
           id="password" className="bg-slate-100 p-3 rounded-lg"
           onChange={handleChange}
           />
-          <button 
+          <button disabled={loading} 
           className="uppercase bg-slate-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80">
-            Sign Up</button>
+            { loading ? 'loading' : 'signup'}
+            </button>
         </form>
         <div className="flex gap-2 mt-5">
           <p> Have an account? </p>
@@ -57,6 +79,9 @@ const SignUp = () => {
          <span className="text-blue-500 "> Sign In </span>
          </Link>
         </div>
+        <p className='text-red-700 mt-5'>
+          { error && 'Something went wrong'}
+        </p>
     </div>
   )
 }
