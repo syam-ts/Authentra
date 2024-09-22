@@ -5,13 +5,11 @@ import SignIn from "./pages/SignIn"
 import SignUp from './pages/Signup'
 import Profile from "./pages/Profile"
 import Header from "./component/Header"
-import { Provider } from 'react-redux'
-import { store } from './redux/store.js'
 
 
 const App = () => {
   return (
-    <Provider store={store}> 
+   
     <BrowserRouter>
     <Header />
       <Routes>
@@ -21,8 +19,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-    </BrowserRouter> 
-    </Provider>
+    </BrowserRouter>  
   )
 }
 
