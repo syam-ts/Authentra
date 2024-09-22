@@ -7,7 +7,7 @@ const SignIn = () => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, error} = useSelector((state) => state.user)
+  const { loading, error} = useSelector((state: any) => state.user)
 
 
   const handleChange = (e: any) => {
@@ -27,13 +27,13 @@ const SignIn = () => {
         },
         body: JSON.stringify(formData),
       })
-       console.log('Middle')
       const data = await res.json()
-      dispatch(signInSuccess(data)) 
+  
       if(data.success === false) { 
-       dispatch(signInFailure(data.message))
+       dispatch(signInFailure(data))
         return
       }
+      dispatch(signInSuccess(data)) 
     navigate('/')
     }catch(err: any) {
       dispatch(signInFailure(err))
@@ -72,7 +72,7 @@ const SignIn = () => {
          </Link>
         </div>
         <p className='text-red-700 mt-5'>
-          { error && 'Something went wrong'}
+          { error ? error.message || 'Something went wrong' : ''}
         </p>
     </div>
   )
