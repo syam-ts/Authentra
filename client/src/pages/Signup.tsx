@@ -52,10 +52,10 @@ const SignUp = () => {
 
   return (
     <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">
+      <h1 className="text-3xl font-semibold my-7">
         Sign up
         </h1>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-center">
           <input type="text" 
           placeholder="username"
           id="username" className="bg-slate-100 p-3 rounded-lg"
@@ -75,7 +75,9 @@ const SignUp = () => {
           className="uppercase bg-slate-700 text-white p-3 rounded-lg hover:opacity-95 disabled:opacity-80">
             { loading ? 'loading' : 'signup'}
             </button>
+            <div className="bg-red-700 rounded-lg hover:opacity-95">
             <OAuth />
+            </div>
         </form>
         <div className="flex gap-2 mt-5">
           <p> Have an account? </p>
