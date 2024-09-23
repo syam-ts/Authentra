@@ -51,11 +51,31 @@ export const google = async (req: Request, res: Response, next: any) => {
       const{ password: hashedPassword, ...rest} = user.toObject()
       // const{ password: hashedPassword, ...rest} = user._doc
       const expiryDate = new Date(Date.now() + 3600000)
-      res.cookie('acess_token', token , { httpOnly: true,
+      res.cookie('acess_token', token , {
+         httpOnly: true,
         expires: expiryDate
       })
     } else {
-           
+       const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8) //last 8 number will be slice
+       
+       const hashedPassword = bcryptjs.hashSync(generatePassword, 10)
+
+       const newUser = new User({
+        username: req.body.name.split(' ').join('').toLowerCase() + Math.floor(Math.random() * 10000).toString(),
+        email: req.body.email, 
+        password: hashedPassword,
+        profilePicture: req.body.photo
+        })
+        await newUser.save()
+
+        const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET as string )
+        const{ password: hashedPassword2, ...rest} = newUser.toObject()
+        // const{ password: hashedPassword, ...rest} = user._doc
+        const expiryDate = new Date(Date.now() + 3600000)
+        res.cookie('acess_token', token , {
+           httpOnly: true,
+          expires: expiryDate
+        })
     }
   }catch(err: any) {
 
