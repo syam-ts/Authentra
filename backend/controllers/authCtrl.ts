@@ -54,7 +54,7 @@ export const google = async (req: Request, res: Response, next: any) => {
       res.cookie('acess_token', token , {
          httpOnly: true,
         expires: expiryDate
-      })
+      }).status(200).json(rest)
     } else {
        const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8) //last 8 number will be slice
        
@@ -75,7 +75,7 @@ export const google = async (req: Request, res: Response, next: any) => {
         res.cookie('acess_token', token , {
            httpOnly: true,
           expires: expiryDate
-        })
+        }).status(200).json(rest)
     }
   }catch(err: any) {
 

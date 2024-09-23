@@ -27,6 +27,7 @@ const OAuth = () => {
         })
       })
    const data = await res.json()
+   console.log(data)
    dispatch(signInSuccess(data))
     } catch (err: any) {
       console.log('Could not login with Google', err)
