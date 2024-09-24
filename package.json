@@ -6,8 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon backend/dist/index.js",
-    "start": "node backend/dist/index.js",
-    "bulid": "npm install && npm install --prefix client && npm run bulid --prefix client"
+    "start": "node backend/dist/index.js"
   },
   "keywords": [],
   "author": "",
