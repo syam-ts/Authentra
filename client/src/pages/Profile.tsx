@@ -9,7 +9,7 @@ function Profile() {
    const [ image, setImage] = useState(undefined)
    const [imagePercent, setImagePercent] = useState(0)
    const [imageError, setImageError] = useState(false)
-   const [formData, setFormData] = useState({})
+   const [formData, setFormData] = useState({profilePicture: ''})
    console.log( formData )
  
  
@@ -49,7 +49,7 @@ function Profile() {
         <input type='file' ref={fileRef} hidden accept='/image/*' 
          onChange={(e: any) => setImage(e.target.files[0])}
         />
-        <img src={user.currentUser.profilePicture} alt='profile' 
+        <img src={formData.profilePicture || user.currentUser.profilePicture} alt='profile' 
          className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
          onClick={() => fileRef.current.click()}
         />

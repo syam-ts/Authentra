@@ -6,6 +6,7 @@ import authRouter from './routes/authRoute.js'
 import bodyParser from 'body-parser'
 import { Response, Request } from 'express'
 import cors from 'cors';
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
@@ -27,6 +28,8 @@ const PORT: number = 3000
 app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json())
+app.use(cookieParser())
+
 
 //server
 app.listen(PORT,() => {

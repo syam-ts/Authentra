@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import User from "../models/userModel.js"
 import bcryptjs from "bcryptjs"
-import { errorHandler } from "../utiils/error.js"
+import { errorHandler } from "../utils/error.js"
 import jwt from 'jsonwebtoken'
 
 export const signup = async (req: Request, res: Response) => {
