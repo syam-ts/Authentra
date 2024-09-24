@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import { Response, Request } from 'express'
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
+import path from 'path'
 
 dotenv.config()
 
@@ -21,10 +22,16 @@ mongoose.connect( mongoURI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
- 
-
-const app = express()
 const PORT: number = 3000
+ 
+const __dirname = path.resolve()
+const app = express()
+app.use(express.static(path.join(__dirname, '/cliend/dist')))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+})
+
 app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json())
@@ -39,6 +46,7 @@ app.listen(PORT,() => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+
 
 
 app.use((err: any, req: Request, res: Response, next: any) => {
