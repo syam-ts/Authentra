@@ -10,10 +10,8 @@ export const test = (req: Request, res: Response) => {
   }
  
     export const updateUser = async (req: any, res: any, next: any) => {
-      console.log(req.body  )
-      if (req.user.id !== req.params.id) {
-        return next(errorHandler(401, 'You can update only your account!'));
-      }
+
+      
       try {
         if (req.body.password) {
           req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -35,4 +33,16 @@ export const test = (req: Request, res: Response) => {
       } catch (error) {
         next(error)
       }
+    }
+
+
+    export const deleteUser = async (req: any, res: any, next: any) => {
+
+      try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json('User has been deleted...');
+      } catch (error) {
+        next(error);
+      }
+    
     }
