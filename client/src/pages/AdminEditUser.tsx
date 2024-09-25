@@ -92,7 +92,8 @@ const AdminEditUser = () => {
 
 
   const handleSubmit = async (e: any) => {  
-    console.log(users._id)
+  
+    console.log('user: ',users._id)
       e.preventDefault();
       try {
         dispatch(updateUserStart());
@@ -103,6 +104,7 @@ const AdminEditUser = () => {
           },
           body: JSON.stringify(formData),
         })
+        console.log('here', formData)
         console.log('data',res)
         const data = await res.json();
         if (data.success === false) {

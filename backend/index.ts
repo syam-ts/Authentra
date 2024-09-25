@@ -26,7 +26,7 @@ process.on('SIGINT', async () => {
 
 
 const app = express()
-const PORT: number = 3000
+const PORT: number = 3005
 app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json())
@@ -36,7 +36,7 @@ app.use(cookieParser())
 //server
 app.listen(PORT,() => {
 
-    console.log('server running on port 5173')
+    console.log('server running on port 3005')
 })
 
 app.use('/api/auth', authRouter)

@@ -10,7 +10,7 @@ import PrivateRoute from "./component/PrivateRoute"
 import AdminHome from './pages/AdminHome'
 import AdminEditUser from './pages/AdminEditUser'
 
-import HeaderContainer from "./pages/HeaderCom"
+
 import { AdminEdit } from './pages/AdminHome'
 import AdminAbout from "./pages/AdminAbout"
 
@@ -19,11 +19,16 @@ const App = () => {
   return (
    
     <BrowserRouter>
-  <HeaderContainer />
+  <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/home/about" element={<About />} /> 
+        <Route path="/" element={<Home />} /> 
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+
+        <Route path="/about" element={<About />} /> 
+
+
         <Route path="/admin" element={<AdminHome />} /> 
         <Route path="/admin/about" element={<AdminAbout />} /> 
       <Route path="/admin/edit-user/:userId" element={<AdminEditUser />} /> 

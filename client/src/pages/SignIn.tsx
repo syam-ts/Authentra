@@ -19,6 +19,7 @@ const SignIn = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault(); 
 
+
     try{
       dispatch(signInStart())
       const res = await fetch('/api/auth/signin', {
@@ -29,6 +30,8 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       })
       const data = await res.json()
+
+      console.log('work',formData)
   
       if(data.success === false) { 
        dispatch(signInFailure(data))
@@ -71,7 +74,7 @@ const SignIn = () => {
         </form>
         <div className="flex gap-2 mt-5">
           <p> Dont have an account? </p>
-         <Link to="/sign-up">
+         <Link to="/signup">
          <span className="text-blue-500 "> Sign Up </span>
          </Link>
         </div>

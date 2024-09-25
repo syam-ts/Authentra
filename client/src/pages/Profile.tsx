@@ -69,7 +69,7 @@ function Profile() {
 
 
   const handleSubmit = async (e: any) => {  
-  console.log(user.currentUser._id)
+  
     e.preventDefault();
     try {
       dispatch(updateUserStart());
@@ -80,6 +80,7 @@ function Profile() {
         },
         body: JSON.stringify(formData),
       })
+      console.log(formData)
       console.log('data',res)
       const data = await res.json();
       if (data.success === false) {
