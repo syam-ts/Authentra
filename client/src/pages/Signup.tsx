@@ -37,7 +37,7 @@ const SignUp = () => {
         setError(true)
         return
         }
-        navigate('/sign-in')
+        navigate('/signin')
 
     }catch(err: any) {
 
@@ -81,7 +81,7 @@ const SignUp = () => {
         </form>
         <div className="flex gap-2 mt-5">
           <p> Have an account? </p>
-         <Link to="/sign-in">
+         <Link to="/signin">
          <span className="text-blue-500 "> Sign In </span>
          </Link>
         </div>

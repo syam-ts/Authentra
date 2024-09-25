@@ -13,6 +13,8 @@ import {
     signOut
   
   } from '../redux/user/userSlice.js'
+import { useNavigate } from 'react-router-dom'
+import SignIn from './SignIn'
 
 function Profile() {
 
@@ -32,8 +34,19 @@ function Profile() {
    const [formData, setFormData] = useState<FormData>({})
    const [updateSuccess, setUpdateSuccess] = useState(false)
    const dispatch = useDispatch()
+   const navigate = useNavigate()
  
  
+   const check = () => {
+    console.log('call')
+    if (user === null) {
+      console.log('no usernam')
+      navigate('/')
+    }
+  }
+
+  check()
+
    useEffect(() => {
     if(image) {
       handleFileUpload(image)
@@ -103,7 +116,7 @@ function Profile() {
       const res = await fetch(`/api/user/delete/${user.currentUser._id}`, {
         method: 'DELETE',
       });
-      console.log('The user: ',user.currentUser._id)
+     
 
       const data = await res.json();
       if (data.success === false) {
@@ -125,7 +138,11 @@ function Profile() {
     }
   }
 
-  
+  if (!user.currentUser || !user.currentUser._id) {
+    return <div>< SignIn /></div>;
+  } else {
+
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'> Profile</h1>
@@ -136,10 +153,10 @@ function Profile() {
          onChange={(e: any) => setImage(e.target.files[0])}
 
         />
-        <img src={formData.profilePicture || user.currentUser.profilePicture} alt='profile' 
-         className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
-         onClick={() => fileRef.current.click()}
-        />
+      <img src={user.currentUser && user.currentUser.profilePicture ? user.currentUser.profilePicture : formData.profilePicture} alt='profile' 
+  className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
+  onClick={() => fileRef.current.click()}
+/>
      
      <p className='text-sm self-center'>
       {imageError ? 
@@ -156,11 +173,11 @@ function Profile() {
       </span>) : '' 
       } 
      </p>
-        <input defaultValue={user.currentUser.username} type='text' id='username'  
+        <input defaultValue={ user.currentUser.username } type='text' id='username'  
           placeholder='username' className='bg-slate-100 rounded-lg p-3'
            onChange={handleChange}
         />
-        <input defaultValue={user.currentUser.email} type='email' id='email'  
+        <input defaultValue={user.currentUser && user.currentUser.email ? user.currentUser.email : formData.email} type='email' id='email'  
           placeholder='email' className='bg-slate-100 rounded-lg p-3'
            onChange={handleChange}
         />
@@ -180,6 +197,7 @@ function Profile() {
       <p className='text-green-700 mt-5'> { updateSuccess && ' User is updated successfully!'} </p>
     </div>
   )
+}
 }
 
 

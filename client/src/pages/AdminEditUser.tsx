@@ -103,8 +103,7 @@ const AdminEditUser = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        })
-        console.log('here', formData)
+        }) 
         console.log('data',res)
         const data = await res.json();
         if (data.success === false) {
@@ -166,17 +165,13 @@ const AdminEditUser = () => {
         />
                   </div>
                   <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700 :text-white">
-                      Email
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 :text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="firstName"
-                      type="text"
-                      placeholder={users.email}
-                      onChange={handleChange}
-                    />
+                  <input defaultValue={users.email} type='text' id='email'  
+          placeholder='email' className='bg-slate-100 rounded-lg p-3'
+           onChange={handleChange}
+        />
                   </div>
+               
+               
 
                   
             
