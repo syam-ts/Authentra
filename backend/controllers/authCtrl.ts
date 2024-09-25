@@ -2,7 +2,9 @@ import { Request, Response } from "express"
 import User from "../models/userModel.js"
 import bcryptjs from "bcryptjs"
 import { errorHandler } from "../utils/error.js"
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken' 
+
+
 
 export const signup = async (req: Request, res: Response) => {
  
@@ -83,5 +85,33 @@ export const google = async (req: Request, res: Response, next: any) => {
 
 
 export const signout = (req: any, res: any) => {
-  res.clearCookie('access_token').status(200).json('Signout success!');
-};
+  res.clearCookie('access_token').status(200).json('Signout success!')
+}
+
+
+//admin login
+
+export const adminLogin = (req: any, res: Response) => {
+  res.redirect('/admin');
+  const usernameA: string = 'adminau';
+  const passwordA: string = 'admin123';
+
+  try {
+    console.log(req.body);
+    if (req.body.username === usernameA && req.body.password === passwordA) {
+      console.log('worked')
+
+
+      if (req.body.username === usernameA && req.body.password === passwordA) {
+        console.log('worked');
+        res.redirect('http://localhost:3005/admin'); // Specify the full URL with port 3005
+      }
+      // Add this line to redirect to /admin
+    } else {
+      console.log('Wrong credentials');
+      res.status(401).send('Invalid credentials'); // Return an error response
+    }
+  } catch (err: any) {
+    console.error(err);
+    }
+}
