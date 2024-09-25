@@ -57,8 +57,21 @@ function AdminHome() {
                 <td className="px-6 py-4 w-1"><img src={user.profilePicture} /></td>
                 <td className="px-6 py-4">{user.username}</td>
                 <td className="px-6 py-4">{user.email}</td>
-                <td className="px-6 py-4">{new Date(user.createdAt)
-                  .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                <td className="px-6 py-4"><div className='flex gap-5'>
+                {new Date(user.createdAt)
+                  .toLocaleDateString('en-GB', { day: '2-digit', month: 'numeric', year: 'numeric' })}
+             
+           
+                 <button className='h-1 w-5'
+                   
+                 >
+                    <img src="https://img.icons8.com/?size=80&id=88sXsrqGPpa0&format=png" />
+                  </button>
+                  <button className='h-1 w-5'>
+                    <img src="https://img.icons8.com/?size=48&id=pre7LivdxKxJ&format=png" />
+                  </button>
+           
+                </div>
                 </td>
                 </tr>
             ))} 
