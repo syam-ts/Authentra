@@ -9,6 +9,7 @@ import AdminHeader from "./component/AdminHeader"
 import PrivateRoute from "./component/PrivateRoute"
 import AdminHome from './pages/AdminHome'
 import HeaderContainer from "./pages/HeaderCom"
+import { AdminEdit } from './pages/AdminHome'
 
 const App = () => {
  
@@ -25,6 +26,7 @@ const App = () => {
         <Route element={<PrivateRoute />} >
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/adminHome" element={<AdminHome />} /> 
+        <Route path="/admin/admin-edit" element={<AdminEdit />} /> 
         </Route>
 
       </Routes>
