@@ -46,3 +46,17 @@ export const test = (req: Request, res: Response) => {
       }
     
     }
+
+
+    //admin
+
+    export const adminUsers = async (req: any, res: any, next: any) => {
+
+      try {
+        const users = await User.find()
+        res.status(200).json(users)
+      } catch (error) {
+        next(error)
+      }
+    }
+    
