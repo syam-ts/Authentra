@@ -10,21 +10,23 @@ import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
-const mongoURI = process.env.MONGO
+const mongoURI = process.env.MONGO;
 
-if(!mongoURI) {
-    throw new Error('Mongo db error')
+if (!mongoURI) {
+    throw new Error('MongoDB connection string not found');
 }
- 
 
-mongoose.connect( mongoURI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+mongoose.connect(mongoURI);
 
- 
+process.on('SIGINT', async () => {
+    await mongoose.connection.close();
+    console.log('MongoDB connection closed due to app termination');
+    process.exit(0);
+});
+
 
 const app = express()
-const PORT: number = 5173
+const PORT: number = 3000
 app.use(express.json())
 app.use(cors());
 app.use(bodyParser.json())

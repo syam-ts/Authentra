@@ -1,10 +1,49 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import {useSelector} from 'react-redux' 
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
+import { app } from '../firebase'
+import { useDispatch } from 'react-redux'
+import { 
+  updateUserStart,
+   updateUserSuccess,
+    updateUserFailure 
+  
+  } from '../redux/user/userSlice.js'
+
 
 const AdminEditUser = () => {
+
+  interface FormData {
+    username?: string;
+    email?: string;
+    password?: string;
+    profilePicture?: string;
+  }
+  
+
+   const { user , loading, error} = useSelector((state: any ) => state.user)
+
   const { userId } = useParams();
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState({})
+  const fileRef: any = useRef(null)
+  const [imagePercent, setImagePercent] = useState(0)
+  const [ image, setImage] = useState(undefined)
+  const [imageError, setImageError] = useState(false)
+  const [updateSuccess, setUpdateSuccess] = useState(false)
+  const [formData, setFormData] = useState<FormData>({})
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+   if(image) {
+     handleFileUpload(image)
+   }
+  }, [image])
+
+
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -12,7 +51,7 @@ const AdminEditUser = () => {
         const res = await axios.get(`/api/user/admin/admin-edit/${userId}`);
         const userData = res.data;
         console.log("The data : ", userData);
-        setUser(userData);
+        setUsers(userData);
       } catch (error) {
         console.error(error);
       }
@@ -20,7 +59,63 @@ const AdminEditUser = () => {
     fetchUser();
   }, [])
 
-  
+
+
+  const handleFileUpload = async (image: any) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + image.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setImagePercent(Math.round(progress));
+      },
+      (error: any) => {
+        setImageError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, profilePicture: downloadURL })
+        )
+      }
+    )
+  }
+
+
+  const handleChange = (e: any) => {
+    setFormData({...formData, [e.target.id]: e.target.value})
+  } 
+
+
+
+  const handleSubmit = async (e: any) => {  
+    console.log(users._id)
+      e.preventDefault();
+      try {
+        dispatch(updateUserStart());
+        const res = await fetch(`/api/user/update/${users._id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+        console.log('data',res)
+        const data = await res.json();
+        if (data.success === false) {
+          dispatch(updateUserFailure(data))
+          return;
+        }
+        dispatch(updateUserSuccess(data))
+        setUpdateSuccess(true)
+      } catch (error) {
+        dispatch(updateUserFailure(error));
+        console.log('error')
+      }
+    }
 
   return (
     <div className="h-full mx-96">
@@ -28,26 +123,45 @@ const AdminEditUser = () => {
         <div className="flex justify-center px-6 py-12">
           <div className="w-full xl:w-3/4 lg:w-11/12 flex">
             <div className="w-full h-auto p-20 lg:w-5/12 bg-cover rounded-l-lg">
-               <img src={user.profilePicture} />
-               <button className='font-thin h-12 w-28 pt-12 underline text-blue-600'> Edit Image </button>
+            <input type='file' ref={fileRef} hidden accept='/image/*' 
+         onChange={(e: any) => setImage(e.target.files[0])}
+
+        />
+        <img src={formData.profilePicture || users.profilePicture} alt='profile' 
+         className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
+         onClick={() => fileRef.current.click()}
+        />
+     
+     <p className='text-sm self-center'>
+      {imageError ? 
+        (<span className='text-red-700'>  Error Uploading image
+        ( file size must be less than 2 MB)
+        </span> ): imagePercent > 0 && 
+      imagePercent < 100 ?
+      (<span className='text-slate-700'>
+          { `Uploading: ${imagePercent} %`}   
+        </span>) : 
+        imagePercent === 100 ?
+       ( <span className='text-green-700'>
+        Image uploaded successfully  
+      </span>) : '' 
+      } 
+     </p>
             </div>
 
             <div className="w-full lg:w-7/12 bg-white :bg-gray-700 p-5 rounded-lg lg:rounded-l-none">
               <h3 className="py-4 text-2xl text-center text-gray-800 :text-white">
-                Create an Account!
+                Edit User
               </h3>
-              <form className="px-8 pt-6 pb-8 mb-4 bg-white :bg-gray-800 rounded">
+              <form className="px-8 pt-6 pb-8 mb-4 bg-white :bg-gray-800 rounded"
+                  onSubmit={handleSubmit}
+              >
                 <div className="mb-4 grid gap-6 md:justify-between">
                   <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700 :text-white">
-                      User Name
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 :text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="firstName"
-                      type="text"
-                      placeholder={user.username}
-                    />
+                  <input defaultValue={users.username} type='text' id='username'  
+          placeholder='username' className='bg-slate-100 rounded-lg p-3'
+           onChange={handleChange}
+        />
                   </div>
                   <div className="mb-4 md:mr-2 md:mb-0">
                     <label className="block mb-2 text-sm font-bold text-gray-700 :text-white">
@@ -57,7 +171,8 @@ const AdminEditUser = () => {
                       className="w-full px-3 py-2 text-sm leading-tight text-gray-700 :text-white border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       id="firstName"
                       type="text"
-                      placeholder={user.email}
+                      placeholder={users.email}
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -69,12 +184,9 @@ const AdminEditUser = () => {
             
                 
                 <div className="mb-6 text-center">
-                  <button
-                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 :bg-blue-700 :text-white :hover:bg-blue-900 focus:outline-none focus:shadow-outline"
-                    type="button"
-                  >
-                   Update User
-                  </button>
+                <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
+          { loading ? 'Loading...' : 'Update'}
+        </button>
                 </div>
                 <hr className="mb-6 border-t" />
             
