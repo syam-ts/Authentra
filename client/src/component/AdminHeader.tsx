@@ -9,12 +9,12 @@ function Header() {
       <div className="flex justify-between itmes-center max-w-6xl mx-auto p-3">
         <span className="font-bold">Authentra</span>
         <ul className="flex gap-4">
-          <Link to="/AdminHome">
+          <Link to="/admin">
            <li>
             Home
             </li>
            </Link>
-          <Link to="/about">
+          <Link to="/admin/about">
            <li>
             About
             </li>
