@@ -10,18 +10,23 @@ import AdminHome from './pages/AdminHome'
 import AdminEditUser from './pages/AdminEditUser' 
 import AdminAbout from "./pages/AdminAbout"
 import AdminLogin from "./pages/AdminLogin"
+import Alogin from "./pages/Alogin"
 
 
 
 const HeaderContainer = () => {
   const location = useLocation();
 
-  if (location.pathname.startsWith('/admin')) {
+  if (location.pathname.startsWith('/admin/login')) {
+    return null;
+  } else if (location.pathname.startsWith('/admin')) {
     return <AdminHeader />;
   } else {
     return <Header />;
   }
-};
+}
+
+
 const App = () => {
 
  
@@ -38,7 +43,7 @@ const App = () => {
         <Route path="/about" element={<About />} /> 
  
         <Route path="/admin" element={<AdminHome />} />  
-        <Route path='/admin/login' element={<AdminLogin />} />
+        <Route path='/admin/login' element={<Alogin />} />
         <Route path="/admin/about" element={<AdminAbout />} /> 
       <Route path="/admin/edit-user/:userId" element={<AdminEditUser />} /> 
 

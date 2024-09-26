@@ -97,7 +97,7 @@ const AdminEditUser = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${users._id}`,{
+      const res = await fetch(`http://localhost:3005/api/user/update/${users._id}`,{
           method: "POST",
           headers: {
             "Content-Type": "application/json",

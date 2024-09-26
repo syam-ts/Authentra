@@ -10,9 +10,16 @@ const navigate = useNavigate()
 
 
 const signOutAdmin = () => {
-
-  dispatch(updateAdminStatus(false))
-  navigate('/admin/login')
+  fetch('/api/admin/verifyLogout', {
+    method: 'POST',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        window.location.href = data.redirect;
+      }
+    })
+    .catch((error) => console.error(error));
 }
 
  

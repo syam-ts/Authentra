@@ -3,10 +3,12 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRouter from './routes/userRoute.js'
 import authRouter from './routes/authRoute.js'
+import adminRouter from './routes/adminRoute.js'
 import bodyParser from 'body-parser'
 import { Response, Request } from 'express'
 import cors from 'cors';
 import cookieParser from 'cookie-parser'
+import session from 'express-session'
 
 dotenv.config()
 
@@ -27,13 +29,22 @@ process.on('SIGINT', async () => {
 
 const app = express()
 const PORT: number = 3005
-app.use(express.json())
-app.use(cors());
+
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:5173', 
+    credentials: true,                
+  }))
+  app.use(session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+  }));
+  app.use(express.json())
 
-
-//server
+  
 app.listen(PORT,() => {
 
     console.log('server running on port 3005')
@@ -41,6 +52,7 @@ app.listen(PORT,() => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter) 
+app.use('/api/admin', adminRouter) 
 
 
 app.use((err: any, req: Request, res: Response, next: any) => {

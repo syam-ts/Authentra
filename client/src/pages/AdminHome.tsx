@@ -24,7 +24,20 @@ function AdminHome() {
   const { error } = useSelector((state: any) => state.user.user) 
   const dispatch = useDispatch()
  
-  console.log("admin : ", error);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3005/api/admin/check-session')
+      .then((response: any) => {
+        if (!response.data.success) {
+          navigate('/admin/login', { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+  }, [])
+
+  
 
   useEffect(() => {
     axios
