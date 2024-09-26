@@ -15,13 +15,13 @@ const signOutAdmin = () => {
   navigate('/admin/login')
 }
 
-  if(error === false) {
-    navigate('/admin/login')
-  } else {
+ 
     return (
       <div className="bg-slate-200">
         <div className="flex justify-between itmes-center max-w-6xl mx-auto p-3">
-          <span className="font-bold">Authentra</span>
+          <span className="font-bold">
+            <Link to='/admin'>Authentra</Link>
+          </span>
           <ul className="flex gap-4">
             <Link to="/admin">
              <li>
@@ -45,7 +45,7 @@ const signOutAdmin = () => {
         </div>
       </div>
     )
-  }
+ 
 }
 
 export default Header

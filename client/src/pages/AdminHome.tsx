@@ -35,7 +35,7 @@ function AdminHome() {
       .catch((error) => {
         console.error(error);
       })
-  }, [])
+  }, [users])
   
 
   const history = useNavigate();
@@ -48,7 +48,7 @@ function AdminHome() {
     console.log("user id : ", userId);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`http://localhost:3005/api/user/delete/${userId}`, {
+      const res = await fetch(`/api/user/delete/${userId}`, {
         method: "DELETE",
       });
 
@@ -59,11 +59,11 @@ function AdminHome() {
         return;
       }
       dispatch(deleteUserSuccess(data));
-      navigate("/admin", { replace: true });
+      navigate("/admin", { replace: true })
     } catch (error) {
       dispatch(deleteUserFailure(error));
     }
-  };
+  }
 
  
   return (
