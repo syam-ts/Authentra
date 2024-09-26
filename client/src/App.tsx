@@ -9,6 +9,7 @@ import AdminHeader from "./component/AdminHeader"
 import AdminHome from './pages/AdminHome'
 import AdminEditUser from './pages/AdminEditUser' 
 import AdminAbout from "./pages/AdminAbout"
+import AdminLogin from "./pages/AdminLogin"
 
 
 
@@ -35,9 +36,9 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/about" element={<About />} /> 
-
-
+ 
         <Route path="/admin" element={<AdminHome />} />  
+        <Route path='/admin/login' element={<AdminLogin />} />
         <Route path="/admin/about" element={<AdminAbout />} /> 
       <Route path="/admin/edit-user/:userId" element={<AdminEditUser />} /> 
 

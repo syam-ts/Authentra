@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
 
@@ -8,6 +9,7 @@ const AdminLogin = () => {
       }
 
   const [formData, setFormData] = useState<FormData>({}) 
+  const navigate = useNavigate()
 
   const handleChange = (e: any) => {
     setFormData({...formData, [e.target.id]: e.target.value})
@@ -16,16 +18,15 @@ const AdminLogin = () => {
   const subminForm = async (e: any) => {
     e.preventDefault();
     try { 
-      const res = await fetch(`api/auth/admin/login`, {
+      const res = await fetch(`http://localhost:3005/api/auth/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       })
-      console.log('form data : ', formData)
-      console.log('data',res)
-      const data = await res.json();
+       
+      navigate('/admin')
        
     } catch (error) {
       

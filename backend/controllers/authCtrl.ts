@@ -92,24 +92,19 @@ export const signout = (req: any, res: any) => {
 //admin login
 
 export const adminLogin = (req: any, res: Response) => {
-  res.redirect('/admin');
+ 
   const usernameA: string = 'adminau';
   const passwordA: string = 'admin123';
 
   try {
-    console.log(req.body);
-    if (req.body.username === usernameA && req.body.password === passwordA) {
-      console.log('worked')
+    console.log(req.body); 
 
-
-      if (req.body.username === usernameA && req.body.password === passwordA) {
-        console.log('worked');
-        res.redirect('http://localhost:3005/admin'); // Specify the full URL with port 3005
-      }
-      // Add this line to redirect to /admin
+      if (req.body.username === usernameA && req.body.password === passwordA) { 
+        res.redirect('http://localhost:5173/admin') 
+ 
     } else {
       console.log('Wrong credentials');
-      res.status(401).send('Invalid credentials'); // Return an error response
+      res.status(401).send('Invalid credentials') 
     }
   } catch (err: any) {
     console.error(err);
