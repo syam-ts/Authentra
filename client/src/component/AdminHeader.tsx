@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateAdminStatus } from '../redux/user/userSlice'
 
 function Header() {
-//   const { user } = useSelector(( state: any ) => state.user) 
+  
 const { error } = useSelector((state: any) => state.user.user)
-console.log('admn ', error)
-
 const dispatch = useDispatch()
 const navigate = useNavigate()
 
@@ -14,6 +12,7 @@ const navigate = useNavigate()
 const signOutAdmin = () => {
 
   dispatch(updateAdminStatus(false))
+  navigate('/admin/login')
 }
 
   if(error === false) {

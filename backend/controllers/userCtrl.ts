@@ -9,31 +9,35 @@ export const test = (req: Request, res: Response) => {
     })
   }
  
-    export const updateUser = async (req: any, res: any, next: any) => {
-
-      
+    export const updateUser = async (req: Request, res: Response, next: any) => {
       try {
-        if (req.body.password) {
-          req.body.password = bcryptjs.hashSync(req.body.password, 10);
+        const { id } = req.params
+        console.log('The params : ', id)
+        const { username, email, password, profilePicture } = req.body;
+    
+        if (password) {
+          req.body.password = bcryptjs.hashSync(password, 10);
         }
-        const updatedUser: any = await User.findByIdAndUpdate(
-          req.params.id,
-          {
-            $set: {
-              username: req.body.username,
-              email: req.body.email,
-              password: req.body.password,
-              profilePicture: req.body.profilePicture,
-            },
+    
+        const updatedUser: any = await User.findByIdAndUpdate(id, {
+          $set: {
+            username,
+            email,
+            password,
+            profilePicture,
           },
-          { new: true }
-        );
-        const { password, ...rest } = updatedUser._doc
-        res.status(200).json(rest)
+        }, { new: true });
+    
+        if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+    
+        const { password: _, ...rest } = updatedUser._doc;
+        res.status(200).json(rest);
       } catch (error) {
-        next(error)
+        next(error);
       }
-    }
+    };
 
 
     export const deleteUser = async (req: any, res: any, next: any) => {

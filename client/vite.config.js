@@ -8,12 +8,7 @@ export default defineConfig({
                 target: 'http://localhost:3005',
                 changeOrigin: true,
                 secure: false,
-            },
-            '/admin/api': {
-                target: 'http://localhost:3005',
-                changeOrigin: true,
-                secure: false,
-            },
+            }
         },
     },
     plugins: [react()],

@@ -41,10 +41,8 @@ const AdminLogin = () => {
     }
   }
 
-  console.log('eht erro', error)
-  if(error === true) {
-    navigate('/admin')
-  } else {
+  
+ 
     return (
       <div>
         <html>
@@ -111,6 +109,6 @@ const AdminLogin = () => {
       </div>
     )
   }
-}
+ 
 
 export default AdminLogin;

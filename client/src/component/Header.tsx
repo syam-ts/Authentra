@@ -19,17 +19,21 @@ function Header() {
             About
             </li>
             </Link>
-          <Link to="/profile">
+    
         
            {user.currentUser ? (
+                  <Link to="/profile">
             <img src={user.currentUser.profilePicture} alt='profile'
             className="h-7 w-7 rounded-full object-cover"
             />
+             </Link>
            ) : (
-            <li>SignIn</li>
+            <Link to='/signin' >
+              <li>Sign In</li>
+            </Link>
            )}
 
-          </Link>
+         
         </ul>
       </div>
     </div>
