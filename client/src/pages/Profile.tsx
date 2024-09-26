@@ -36,6 +36,7 @@ function Profile() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
  
+   console.log('The Error : ', error)
  
    const check = () => {
     console.log('call')
@@ -86,7 +87,7 @@ function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${user.currentUser._id}`, {
+      const res = await fetch(`http://localhost:3005/api/user/update/${user.currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +114,7 @@ function Profile() {
   const handleDeleteAccount = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${user.currentUser._id}`, {
+      const res = await fetch(`http://localhost:3005/api/user/delete/${user.currentUser._id}`, {
         method: 'DELETE',
       });
      
@@ -131,7 +132,7 @@ function Profile() {
 
   const handleSignOut = async () => {
     try {
-      await fetch('/api/auth/signout');
+      await fetch('http://localhost:3005/api/auth/signout');
       dispatch(signOut())
     } catch (error) {
       console.log(error);

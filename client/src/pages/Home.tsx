@@ -38,7 +38,7 @@ const Home: React.FC = () => {
           className="gap-12 flex ms-5 p-20"
         >
           <div >
-            <img src="./public/images/img_1.jpg" alt='img' className="w-[400px] " />
+            <img src="./images/img_1.jpg" alt='img' className="w-[400px] " />
             <h3>Residencial</h3>
             <span>
               From Manitoba to Brooklyn, affordable, comfortable and
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
             </span>
           </div>
           <div>
-            <img src="./public/images/img_2.jpg" alt='img' />
+            <img src="./images/img_2.jpg" alt='img' />
             <h3>Residencial</h3>
             <span>
               From Manitoba to Brooklyn, affordable, comfortable and
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
             </span>
           </div>
           <div>
-            <img src="./public/images/img_3.jpg" alt='img' />
+            <img src="./images/img_3.jpg" alt='img' />
             <h3>Residencial</h3>
             <span>
               From Manitoba to Brooklyn, affordable, comfortable and

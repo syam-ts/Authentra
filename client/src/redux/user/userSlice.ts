@@ -1,11 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// type UserSlice = {
-//     name: string,
-//     initialState: never[],
-//     reducers: any
-// }
-
 const initialState = {
     currentUser: null,
     loading: false,
@@ -60,6 +54,9 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = false;
       },
+      updateAdminStatus: (state, action) => {
+        state.error = action.payload;
+      }
     }
 })
 
@@ -70,7 +67,8 @@ export const { signInStart, signInSuccess, signInFailure,
    deleteUserStart,
     deleteUserSuccess,
      deleteUserFailure,
-     signOut
+     signOut,
+     updateAdminStatus
     
     } = userSlice.actions
 

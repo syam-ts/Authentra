@@ -48,7 +48,7 @@ const AdminEditUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`/api/user/admin/admin-edit/${userId}`);
+        const res = await axios.get(`http://localhost:3005/api/user/admin/admin-edit/${userId}`);
         const userData = res.data;
         console.log("The data : ", userData);
         setUsers(userData);
@@ -97,7 +97,7 @@ const AdminEditUser = () => {
       e.preventDefault();
       try {
         dispatch(updateUserStart());
-        const res = await fetch(`/api/user/update/${users._id}`, {
+        const res = await fetch(`http://localhost:3005/api/user/update/${users._id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
