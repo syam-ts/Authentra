@@ -27,13 +27,10 @@ const SignUp = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })
-       console.log('Middle')
+      }) 
       const data = await res.json()
-      setLoading(false)
-      console.log('The data : ',data)
-      if(data.success === false) {
-        console.log('Error has gotten!')
+      setLoading(false) 
+      if(data.success === false) { 
         setError(true)
         return
         }

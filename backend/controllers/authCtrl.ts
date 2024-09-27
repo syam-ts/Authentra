@@ -35,7 +35,8 @@ export const signin = async ( req: Request, res: Response, next: any ) => {
       const { password: hashedPassword, ...rest } = validUser.toObject()
       const expiryDate = new Date(Date.now() + 3600000)
       res.cookie('access_token',
-         token, { httpOnly: true, 
+         token, { 
+          httpOnly: true, 
           expires: expiryDate
          })
       .status(200).json(rest)

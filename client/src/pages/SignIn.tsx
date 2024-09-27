@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,16 @@ const SignIn = () => {
   const [formData, setFormData] = useState({})
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, error} = useSelector((state: any) => state.user)
+  const { currentUser, loading, error} = useSelector((state: any) => state.user.user)
+
+  useEffect(() => {
+ 
+    if(currentUser != null ) {
+
+      navigate('/')
+    }
+
+  },[ ])
 
 
   const handleChange = (e: any) => {
@@ -17,7 +26,9 @@ const SignIn = () => {
 
 
   const handleSubmit = async (e: any) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
+
 
 
     try{
@@ -30,8 +41,7 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       })
       const data = await res.json()
-
-      console.log('work',formData)
+ 
   
       if(data.success === false) { 
        dispatch(signInFailure(data))

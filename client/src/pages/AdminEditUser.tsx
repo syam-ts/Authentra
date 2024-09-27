@@ -34,7 +34,7 @@ const AdminEditUser = () => {
   const { user, loading, error } = useSelector((state: any) => state.user);
 
   const { userId } = useParams();
-  const [users, setUsers] = useState({});
+  const [users, setUsers]: [users: any, setUsers: any] = useState({});
   const fileRef: any = useRef(null);
   const [imagePercent, setImagePercent] = useState(0);
   const [image, setImage] = useState(undefined);
@@ -97,7 +97,7 @@ const AdminEditUser = () => {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`http://localhost:3005/api/user/update/${users._id}`,{
+      const res = await fetch(`/api/user/update/${users._id}`,{
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -11,7 +11,7 @@ app.use(session({
 }));
 
 export const verifyLogin = (req: any, res: any) => {
-  console.log("Starts ")
+  
   const username1: string = 'adminau'
   const password1: string = 'admin123'
 

@@ -10,7 +10,7 @@ import AdminHome from './pages/AdminHome'
 import AdminEditUser from './pages/AdminEditUser' 
 import AdminAbout from "./pages/AdminAbout"
 import AdminLogin from "./pages/AdminLogin"
-import Alogin from "./pages/Alogin"
+import Alogin from "./pages/Adminlogin"
 
 
 

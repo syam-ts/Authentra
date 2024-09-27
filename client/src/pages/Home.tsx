@@ -16,7 +16,7 @@ const CardHome: React.FC<CardHomeProps> = ({ imgSrc, title, text }) => {
       </div>
     </div>
   );
-};
+}
 
 const Home: React.FC = () => {
   return (
