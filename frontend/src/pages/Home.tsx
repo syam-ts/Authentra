@@ -26,7 +26,7 @@ const Home: React.FC = () => {
       <div className="body">
         <p
           className="text-center pt-2 didact-gothic-regular"
-          style={{ fontSize: "34px" }}
+          style={{ fontSize: "24px" }}
         >
           Authentra Inc. is the hub for world's top architects and inventors, ready
           to turn your imagination into reality

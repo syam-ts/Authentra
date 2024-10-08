@@ -10,9 +10,9 @@ function Header() {
         <span className="font-bold">
           <Link to='/'>Authentra</Link>
         </span>
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 didact-gothic-regular">
           <Link to="/">
-           <li>
+           <li className=''>
             Home
             </li>
            </Link>
